@@ -22,7 +22,7 @@ def apel(url, iteratii):
     listaTimpRaspuns = []
     for iterator in range(int(iteratii)):
         iterator = raspuns(url)
-        print(f"Timpul de raspuns pentru site-ul {url} este: {iterator} milisecunde")
+        print(f"Timpul de raspuns pentru site-ul {url} este: {iterator:.2f} milisecunde")
         listaTimpRaspuns.append(iterator)
         time.sleep(2)
 
