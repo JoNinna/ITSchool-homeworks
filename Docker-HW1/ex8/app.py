@@ -1,20 +1,20 @@
 import os
+import time
 import logging
 
-logs_folder = os.mkdir("logs", exist_ok=True)
-path_to_folder = "logs/dapp.log"
+os.makedirs("/log", exist_ok=True)
 
 # Log to file and console
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler(path_to_folder),
+        logging.FileHandler("/log/app.log"),
         logging.StreamHandler()
     ]
 )
 
-logging.debug("Debug info")
-logging.info("General info")
-logging.warning("Something might be wrong")
-logging.error("An error happened")
+while True:
+    logging.info("Log generat automat din container")
+    time.sleep(1)
+
