@@ -1,0 +1,18 @@
+Comenzi de rulat:
+
+docker volume create loguri 
+
+Aplicatie python containerizata:
+docker build -t app .
+docker run --name app --mount type=volume,source=loguri,target=/log app:latest
+
+Web server nginx care deserveste continutul static al containerului prin app.log:
+docker run --name nginx -p 8080:80 --mount type=volume,source=loguri,target=/usr/share/nginx/html nginx
+
+Middleware (Flask) prin care pagina web serveste continut dinamic din container:
+docker build -t middleware -f Dockerfile.middleware .
+docker run --name middleware --mount type=volume,source=loguri,target=/log -p 5000:5000 middleware:latest
+
+Pe viitor:
+se poate configura nginx ca reverse proxy si astfel sa redirectioneze cerelile spre Flask.
+In configuratia prezenta, nginx si Flask nu sunt conectate. 
