@@ -1,0 +1,32 @@
+Creați 2 rețele docker de tip bridge cu numele public si private.  
+Rețeaua private trebuie sa nu aiba access la internet (vezi optiunea –internal).
+docker network create public
+docker network create --internal private
+
+Porniti 3 containere de docker plecand de la imaginea tools (vezi exercițiul 9). 
+Numele containerelor sunt: frontend, backend si database. 
+docker run -d --rm --name frontend tools:latest
+docker run -d --rm --name backend tools:latest
+docker run -d --rm --name database tools:latest
+
+Conectati containerele la aceste rețele astfel incat:
+frontend-ul poate sa acceseze backend-ul, dar nu si baza de date.
+docker network connect public frontend
+
+backend-ul poate sa acceseze atat frontend-ul cat si baza de date
+docker network connect public backend
+docker network connect private backend
+
+baza de date poate fi accesată doar de către backend și nu are access la internet.
+docker network connect private database
+
+Verificati aceste conexiuni facand ping din fiecare container.
+docker exec frontend ping backend => suscces pentru ca sunt in aceeasi retea
+docker exec backend ping frontend => suscces pentru ca sunt in aceeasi retea
+docker exec frontend ping database => error pentru ca nu sunt in aceeasi retea
+docker exec backend ping database => suscces pentru ca sunt in aceeasi retea
+docker exec database ping backend => suscces pentru ca sunt in aceeasi retea
+docker exec database ping frontend => error pentru ca nu sunt in aceeasi retea
+
+
+
