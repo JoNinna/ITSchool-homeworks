@@ -1,0 +1,32 @@
+Creați o nouă rețea de tipul bridge cu numele retea-interna.
+docker network creat retea-interna
+
+Porniti doua containere de tipul tools (vezi exercițiul 9) cu nume diferite.
+docker run -d --rm --name tools1 tools:latest
+docker run -d --rm --name tools2 tools:latest
+
+Logati-va pe fiecare container și încercați sa dati ping la celalat container folosind ip-ul și apoi DNS-ul.
+docker exec tools1 ping ip_tools1
+docker exec tools2 ping tools1
+=> doar comanda ping ip_tools1 va functiona doarece ambele containere sunt in reteaua bridge default
+
+Deconectati DOAR primul container de la reteaua retea-interna. 
+Incercati iar sa dati ping intre containere pe baza de IP si pe baza de DNS. 
+docker network connect retea-interna tools1
+docker exec tools1 ping ip_tools1
+docker exec tools2 ping tools1
+=> doar comanda ping ip_tools1 va functiona doarece containere sunt retele diferite 
+
+Conectati ambele containere la reteaua bridge creata.
+docker network coonect retea-interna tools2 
+
+Inspectati ambele retele (bridge-ul default si bridge-ul retea-interna) si verificati ce containere sunt atasate. 
+docker network inspect bridge
+docker network inspect retea-interna 
+=> ambele containere sunt in retea-interna
+
+Inspectati si containerele si verificati la ce retele sunt conectate.
+docker inspect tools1
+docker inspect tools2
+=> ambele containere sunt in retea-interna
+=> ambele comenzi de  ping ip si ping DNS(nume container) vor functiona
