@@ -23,16 +23,19 @@ import uuid
 numar_linii = sys.argv[1]
 
 request_id_list = []
-for item in range(10):
+for _ in range(10):
     request_id_list.append(uuid.uuid4())
+
+# Sintaxa pentru list comprehension:
+# request_id_list = [str(uuid.uuid4()) for _ in range(10)]
 
 # Log to file and console
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler("app.log"),
-        logging.StreamHandler()
+        logging.FileHandler("app.log"), # Handler care se ocupa cu scrierea in fisier
+        logging.StreamHandler()         # Handler care se ocupa cu scrierea in consola
     ]
 )
 
