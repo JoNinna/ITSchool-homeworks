@@ -1,18 +1,38 @@
-# Folosiți libraria facuta de voi pentru a genera un sha256 hash pentru un fisier de pe disk si comparati-l cu valoarea obtinuta ruland comanda de linux sha256sum.
+# Folosiți libraria facuta de voi pentru a genera un sha256 hash pentru un fisier de pe disk si 
+# comparati-l cu valoarea obtinuta ruland comanda de linux sha256sum.
 
-import utils
+import ex2utils
 import subprocess
+import argparse
 import os
 
-nume_string = "test123"
-fisier = "/Python-HW2/ex1.py"
-nume_fisier = os.path.join(os.getcwd() + fisier)
+# Fisierul pentru comparatie hash este hardcodat
+# nume_string = "test123"
+# fisier = "/Python-HW2/ex1.py"
+# nume_fisier = os.path.join(os.getcwd() + fisier)
+
+# Parseaza fisierul de hash-uit ca argument dat din CLI
+# Creaza un parser 
+parser = argparse.ArgumentParser()
+
+# Adauga un argument in parser
+parser.add_argument(
+    "fisier",           # numele argumentului ca identificator intern
+    type=str            # tipul valorii argumentului
+)
+
+# Parsam argumentele date in CLI
+args = parser.parse_args()
+
+# Salvam in variabila
+nume_fisier = args.fisier
+
 
 def verificare():
-    print(f"Hash-ul pentru valoarea string este: {utils.hash_string(nume_string)}")
+    # print(f"Hash-ul pentru valoarea string este: {ex2utils.hash_string(nume_string)}")
 
     #Salvez hash-ul generat de tip bytes
-    hash_f = utils.hash_fisier(nume_fisier)
+    hash_f = ex2utils.hash_fisier(nume_fisier)
     print(f"Hash-ul pentru fisierul {nume_fisier} este: {hash_f}")
 
     # Generez hash prin comanda sha254sum si captez output-ul
@@ -23,7 +43,7 @@ def verificare():
     hash_shell = output.split()[0]
     print(f"Hash-ul generat de comanda sha256sum este: {hash_shell}")
     if hash_f == hash_shell:
-        print("Hash-ul obtinut prin modul utils este acelasi cu cel obtinut prin comanda sha256sum!")
+        print("Hash-ul obtinut prin modul ex2utils este acelasi cu cel obtinut prin comanda sha256sum!")
 
 verificare()
 
