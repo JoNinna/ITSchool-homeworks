@@ -1,0 +1,145 @@
+Linux Core
+
+
+Comenzi Utile
+
+Clonati acest document. În box-urile goale completati cu rezolvarile voastre (comenzi folosite). Dati apoi share la document si trimiteti-l pe discord in mesaj direct (nu pe grup).
+
+Exercitiul 1: Useri si permisiuni
+
+Cerinta 1: Aveți o echipa formată din 3 membrii: alice, bob si charlie. 
+Creati acesti 3 useri. Dați switch la fiecare user si verificati ca a fost creat cu success.
+
+
+
+
+
+Cerinta 2: În echipa avem 2 roluri: developer si tester. 
+Creati 2 grupuri numite “developers” si “testers”.
+În grupul de developers ii avem pe alice si pe bob iar in grupul testers pe bob si charlie (bob este in 2 grupuri).
+Verificati pentru fiecare user că este în grupurile corecte folosind comanda id sau groups.
+
+
+
+
+
+Cerinta 3: Fiecare role poate accesa doar anumite directoare ale proiectului.
+Creați 2 directoare numite /developers si /testers in radacina sistemului de fisiere. În fiecare director pot scrie doar userii grupului respectiv, dar poate citi și executa oricine. Verificati permisiunile directoarelor folosind comanda ls.  
+
+
+
+
+Cerinta 4: Dati switch la userul alice si creati un fisier cu numele script.sh in directorul /developers. In script puneti:
+
+
+
+Dati permisiuni de execuție pentru toata lumea pe acest fișier, dar de modificare doar pentru grupul developers.
+Verificati ca toți userii pot executa acest fișier, dar doar useri din grupul developers îl pot modifica.
+
+
+
+
+Cerinta 5: În timp membrii celor 2 echipe au fost comansati într-o singura echipa numita “tech”.
+Creati un nou group numit “tech”.
+Mutați group owner-ul pentru toate fișierele din directorul /developers si /testers la grupul “tech”.
+Stergeti grupurile developers si testers.
+Verificati ca încă mai puteți edita/rula scripturile cu userul charlie.
+
+
+
+
+
+Exercitiul 2: Pipelines si Fluxuri de date
+
+Rezolvați următoarele cerințe folosind operatorul pipe |. 
+
+
+Cerinta 1: Găsește toate liniile de log de sistem care contin cuvantul error, indiferent de majuscule. 
+Hint: Vezi  /var/log/syslog
+
+
+
+
+
+Cerinta 2: Găsește utilizatorii care au setat ca default shell /bin/bash. Câți utilizatori nu folosesc acest shell? 
+Hint: Lista de utilizatori o gasiti in /etc/passwd
+
+
+
+
+
+Cerinta 3: Afișați primele și ultimele 5 comenzi utilizate de voi. 
+Hint: history, head, tail
+
+
+
+
+
+Cerinta 4. Încercați să creați un user fara drepturi de sudo. Cum putem sa ignoram erorile de permisiuni (a.i. acestea sa nu mai apara in consola)?
+
+
+
+Cerinta 5: Afișați toate comenzile rulate (cu succes) cu sudo de toti userii.
+Hint: /var/log/auth.log
+
+Cerinta 6: Downloadati fisierul app-1.log folosind comanda wget fisierul:
+https://raw.githubusercontent.com/amihai/devops/refs/heads/main/python/log-generator/app-1.log 
+
+Explorați puțin continutul fisierului: afisati primele si ultimele 5 linii si cate linii are fișierul
+
+
+
+
+Cerinta 7: Ce useri au erori deoarece le-a expirat tokenul (NU Permission denied).
+
+
+
+Cerinta 8 (bonus): Incercati sa extrageti in fisiere txt separate urmatoarele informatii din logurile de mai sus:
+Lista cu numele unice ale tuturor userilor ce au avut cel putin o eroare
+Lista de request_id-uri unice.
+Ce request_id-uri nu au nicio eroare 
+Hint: incercati sa folositi comenzile: awk, sort, uniq 
+ 
+
+
+
+
+Exercitiul 3: Procese
+
+Cerinta 1: Porniti un process ce ruleaza comanda sleep Infinity intr-un terminal. Deschideți alt terminal și terminati cu eliberare de resurse procesul (graceful).
+
+
+
+
+Cerinta 2: Downloadati următorul script folosind comanda wget:
+ https://raw.githubusercontent.com/amihai/devops/refs/heads/main/linux/die-hard.sh
+Da-ti permisiuni de execuție pe el si rulati-l.
+Omorati programul. 🙂
+
+
+
+
+Cerinta 3: Deschideti un tab de firefox. Căutați procesul si terminati-l.
+
+
+
+
+Cerinta 4: Care sunt PID-urile primele 5 programe ca utilizare de CPU. Dar ca memorie RAM. 
+Hint: Puteti utiliza comanda top sau ps cu sort dupa memorie.
+
+
+
+
+Cerinta 5: Cate procese are pornite userul curent? Dar root?
+
+
+
+
+Cerinta 6: Downloadati scriptul următor si dati-i permisiuni de execuție:
+https://raw.githubusercontent.com/amihai/devops/refs/heads/main/linux/run-forever.sh
+Rulati scriptul in background in asa fel incat daca se inchide terminalul sa nu se omoare si scriptul. Redirectati outputul scriptului catre un fisier de log cu numele run-forever.log
+Omorati terminalul si verificati ca scriptul încă rulează folosind comanda ps si folosind tail -f pe fisierul de loguri.
+Omorati scriptul si verificati ca a fost oprit.
+
+
+
