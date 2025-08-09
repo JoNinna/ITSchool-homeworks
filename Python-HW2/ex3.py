@@ -14,7 +14,7 @@
 
 import os
 import sys
-import utils
+import ex2utils
 import shutil
 from datetime import datetime
 
@@ -27,8 +27,8 @@ fisier_pt_backup = os.path.abspath(fisier) #Returneaza calea absoluta a fisierul
 # Definim numele fisierului in care urmeaza sa salvam hash-ul initial, ATENTIE, NU hash-ul actual
 fisier_hash = f"hash_{nume_fisier}.txt"
 
-# Se foloseste functia hash_fisier din fisierul utils pentru a genera hash-ul actual si ulterior pentru a fi comparat cu hash-ul initial cu scopul de a veadea daca fisierul a suferit modificari 
-hash_actual = utils.hash_fisier(fisier_pt_backup)
+# Se foloseste functia hash_fisier din fisierul ex2utils pentru a genera hash-ul actual si ulterior pentru a fi comparat cu hash-ul initial cu scopul de a veadea daca fisierul a suferit modificari 
+hash_actual = ex2utils.hash_fisier(fisier_pt_backup)
 
 hash_initial = None
 

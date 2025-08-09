@@ -9,45 +9,57 @@ Exercitiul 1: Useri si permisiuni
 
 Cerinta 1: Aveți o echipa formată din 3 membrii: alice, bob si charlie. 
 Creati acesti 3 useri. Dați switch la fiecare user si verificati ca a fost creat cu success.
-
-
-
-
+Am creat un script de bash adduser.sh care creaza userii pe baza comenzii sudo adduser $user 
+Dupa am rular chmod +x adduser.sh si ./adduser.sh
+Dat fiind ca parola noilor utilizatori este null, am rulat sudo su pentru ca mai apoi sa ma loghez pe noii useri fara a avea nevoie de parola prin su - user
 
 Cerinta 2: În echipa avem 2 roluri: developer si tester. 
 Creati 2 grupuri numite “developers” si “testers”.
+sudo groupadd developer
+sudo groupadd tester
+# Mai exista si comanda addgroup care face cam acelasi lucuru
 În grupul de developers ii avem pe alice si pe bob iar in grupul testers pe bob si charlie (bob este in 2 grupuri).
+sudo usermod -aG developer alice
+sudo usermod -aG developer bob
+sudo usermod -aG tester bob
+sudo usermod -aG tester charlie 
 Verificati pentru fiecare user că este în grupurile corecte folosind comanda id sau groups.
-
-
-
-
+ninna@ninna-QEMU-Virtual-Machine:~/work/ITSchool-homeworks/Linux-HW1$ groups alice 
+alice : alice users developer
+ninna@ninna-QEMU-Virtual-Machine:~/work/ITSchool-homeworks/Linux-HW1$ groups bob
+bob : bob users developer tester
+ninna@ninna-QEMU-Virtual-Machine:~/work/ITSchool-homeworks/Linux-HW1$ groups charlie
+charlie : charlie users tester
+sau folosind comanda cat /etc/group
 
 Cerinta 3: Fiecare role poate accesa doar anumite directoare ale proiectului.
-Creați 2 directoare numite /developers si /testers in radacina sistemului de fisiere. În fiecare director pot scrie doar userii grupului respectiv, dar poate citi și executa oricine. Verificati permisiunile directoarelor folosind comanda ls.  
+Creați 2 directoare numite /developers si /testers in radacina sistemului de fisiere. 
+mkdir /developers si mkdir /testers
+În fiecare director pot scrie doar userii grupului respectiv, dar poate citi și executa oricine. 
+Verificati permisiunile directoarelor folosind comanda ls.  
+sudo chown :developer developers/
+sudo chown :tester testers/
+sudo chmod 775 developers/
+sudo chmod 775 testers/
 
-
-
-
-Cerinta 4: Dati switch la userul alice si creati un fisier cu numele script.sh in directorul /developers. In script puneti:
-
-
-
+Cerinta 4: Dati switch la userul alice si creati un fisier cu numele script.sh in directorul /developers. 
+In script puneti: echo "Salut"
 Dati permisiuni de execuție pentru toata lumea pe acest fișier, dar de modificare doar pentru grupul developers.
 Verificati ca toți userii pot executa acest fișier, dar doar useri din grupul developers îl pot modifica.
-
-
-
+chmod 575 script.sh
 
 Cerinta 5: În timp membrii celor 2 echipe au fost comansati într-o singura echipa numita “tech”.
 Creati un nou group numit “tech”.
+sudo groupadd tech
 Mutați group owner-ul pentru toate fișierele din directorul /developers si /testers la grupul “tech”.
+sudo chown -R :tech /developers/
+sudo chown -R :tech /testers/
 Stergeti grupurile developers si testers.
+sudo groupdel developer
+sudo groupdel tester
 Verificati ca încă mai puteți edita/rula scripturile cu userul charlie.
-
-
-
-
+su - charlie
+/developers/script.sh
 
 Exercitiul 2: Pipelines si Fluxuri de date
 

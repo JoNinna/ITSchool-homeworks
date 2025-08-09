@@ -3,13 +3,13 @@
 # decodat din base64.
 
 import sys
-import utils
+import ex2utils
 
 nume_string_byte = sys.argv[1]
 nume_fisier = sys.argv[2]
 
 with open(nume_fisier, "w") as file:
-    file.write(utils.decode_base64(nume_string_byte))
+    file.write(ex2utils.decode_base64(nume_string_byte))
 
 
 
