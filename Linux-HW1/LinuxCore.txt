@@ -62,34 +62,25 @@ su - charlie
 /developers/script.sh
 
 Exercitiul 2: Pipelines si Fluxuri de date
-
 Rezolvați următoarele cerințe folosind operatorul pipe |. 
-
 
 Cerinta 1: Găsește toate liniile de log de sistem care contin cuvantul error, indiferent de majuscule. 
 Hint: Vezi  /var/log/syslog
-
-
-
-
+cat /var/log/syslog | grep  -i error
 
 Cerinta 2: Găsește utilizatorii care au setat ca default shell /bin/bash. Câți utilizatori nu folosesc acest shell? 
 Hint: Lista de utilizatori o gasiti in /etc/passwd
-
-
-
-
+grep -v /bin/bash /etc/passwd | wc -l
+Unde -v este reverse search, adica va parcurge tot fisierul dat, dar va afisa doar ce NU se potriveste cu patter-ul cerut, adica cu /bin/bash
 
 Cerinta 3: Afișați primele și ultimele 5 comenzi utilizate de voi. 
 Hint: history, head, tail
-
-
-
-
+history | head -5
+history | tail -5
 
 Cerinta 4. Încercați să creați un user fara drepturi de sudo. Cum putem sa ignoram erorile de permisiuni (a.i. acestea sa nu mai apara in consola)?
-
-
+adduser test 2> /dev/null 
+Note: Redirectioneaza stderr spre null 
 
 Cerinta 5: Afișați toate comenzile rulate (cu succes) cu sudo de toti userii.
 Hint: /var/log/auth.log
