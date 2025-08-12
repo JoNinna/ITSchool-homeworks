@@ -113,40 +113,46 @@ Hint: incercati sa folositi comenzile: awk, sort, uniq
 
 Exercitiul 3: Procese
 
-Cerinta 1: Porniti un process ce ruleaza comanda sleep Infinity intr-un terminal. Deschideți alt terminal și terminati cu eliberare de resurse procesul (graceful).
-
-
-
+Cerinta 1: Porniti un process ce ruleaza comanda sleep Infinity intr-un terminal. 
+Deschideți alt terminal și terminati cu eliberare de resurse procesul (graceful).
+sleep Infinity
+ps aux | grep "sleep Infinity"
+kill -15 process_id
 
 Cerinta 2: Downloadati următorul script folosind comanda wget:
  https://raw.githubusercontent.com/amihai/devops/refs/heads/main/linux/die-hard.sh
 Da-ti permisiuni de execuție pe el si rulati-l.
-Omorati programul. 🙂
-
-
-
+Omorati programul. 
+wget https:...
+ps aux | grep "die-hard.sh"
+kill -9 PID
 
 Cerinta 3: Deschideti un tab de firefox. Căutați procesul si terminati-l.
-
-
-
+???????????? Permission denied
 
 Cerinta 4: Care sunt PID-urile primele 5 programe ca utilizare de CPU. Dar ca memorie RAM. 
 Hint: Puteti utiliza comanda top sau ps cu sort dupa memorie.
-
-
-
+ps -eo pid,comm,%cpu --sort=-%cpu | head -n 5
+ps -eo pid,comm,%mem --sort=-%mem | head -n 5
 
 Cerinta 5: Cate procese are pornite userul curent? Dar root?
-
-
-
+ps -u $(whoami) | wc -l
+ps -u root | wc -l
 
 Cerinta 6: Downloadati scriptul următor si dati-i permisiuni de execuție:
 https://raw.githubusercontent.com/amihai/devops/refs/heads/main/linux/run-forever.sh
-Rulati scriptul in background in asa fel incat daca se inchide terminalul sa nu se omoare si scriptul. Redirectati outputul scriptului catre un fisier de log cu numele run-forever.log
-Omorati terminalul si verificati ca scriptul încă rulează folosind comanda ps si folosind tail -f pe fisierul de loguri.
+wget https://...
+chmod +x run-forever.sh
+Rulati scriptul in background in asa fel incat daca se inchide terminalul sa nu se omoare si scriptul.
+nohup ./run-forever.sh & 
+Redirectati outputul scriptului catre un fisier de log cu numele run-forever.log
+./run-forever.sh > run-forever.log &
+Omorati terminalul si verificati ca scriptul încă rulează folosind comanda ps si 
+folosind tail -f pe fisierul de loguri.
+ps aux | grep "run-forever.sh"
 Omorati scriptul si verificati ca a fost oprit.
+
+
 
 
 
