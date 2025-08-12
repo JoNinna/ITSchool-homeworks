@@ -78,34 +78,38 @@ Hint: history, head, tail
 history | head -5
 history | tail -5
 
-Cerinta 4. Încercați să creați un user fara drepturi de sudo. Cum putem sa ignoram erorile de permisiuni (a.i. acestea sa nu mai apara in consola)?
+Cerinta 4. Încercați să creați un user fara drepturi de sudo. Cum putem sa ignoram erorile de permisiuni 
+(a.i. acestea sa nu mai apara in consola 
 adduser test 2> /dev/null 
 Note: Redirectioneaza stderr spre null 
 
 Cerinta 5: Afișați toate comenzile rulate (cu succes) cu sudo de toti userii.
 Hint: /var/log/auth.log
+cat /var/log/auth.log | grep "COMMAND="
 
 Cerinta 6: Downloadati fisierul app-1.log folosind comanda wget fisierul:
 https://raw.githubusercontent.com/amihai/devops/refs/heads/main/python/log-generator/app-1.log 
-
 Explorați puțin continutul fisierului: afisati primele si ultimele 5 linii si cate linii are fișierul
-
-
-
+cat app-1.log | tail -5
 
 Cerinta 7: Ce useri au erori deoarece le-a expirat tokenul (NU Permission denied).
-
-
+cat /var/log/auth.log | grep "TS expired"
 
 Cerinta 8 (bonus): Incercati sa extrageti in fisiere txt separate urmatoarele informatii din logurile de mai sus:
 Lista cu numele unice ale tuturor userilor ce au avut cel putin o eroare
+awk -F'user | ' '/error/ {print $2}' log.txt | sort -u > users_with_errors.txt
+-F => Delimitator multiplu
+/error/ => selecteaza doar liniile cu erroare
+print $2 => printeaza al 2-a camp
+
 Lista de request_id-uri unice.
+awk -F'request_id | ' '{print $2}' /var/log/auth.log | sort -u > request_ids.txt
+
 Ce request_id-uri nu au nicio eroare 
+awk -F'request_id | ' '/error/ {print $2}' /var/log/auth.log | sort -u > error_request_ids.txt
+
+grep -Fvxf request_ids.txt error_request_ids.txt > no_errors.txt
 Hint: incercati sa folositi comenzile: awk, sort, uniq 
- 
-
-
-
 
 Exercitiul 3: Procese
 
