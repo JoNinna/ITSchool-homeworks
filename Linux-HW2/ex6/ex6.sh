@@ -21,7 +21,20 @@ FOLDER_MONITORED=$1
 export FOLDER_BACKUP="${FOLDER_BACKUP:-./backup}"
 mkdir -p "$FOLDER_BACKUP"
 
+while true; do
+    for file in ${FOLDER_MONITORED}/*; do
+        # 4. Noul nume al fisierului la care a fost facut backup
+        timestamp=$(date +"%Y-%m-%d-%H-%M-%S")
+        filename=$(basename "$file")
+        name="${timestamp}-${filename}"
 
-for file in "${FOLDER_MONITORED}/*"; do
-    echo "$file"
+        sha1=$(sha256sum "$file" | awk '{print $1}')
+        for filetocompare in $FOLDER_BACKUP; do
+            sha2=$(sha256sum "$filetocompare" | awk '{print $1}')
+            if [ sha1!=sha2 ]; then
+                mv "$file" "$FOLDER_BACKUP"
+            fi
+        done
+    done
+    sleep "$FRECVENTA_BACKUP"
 done
