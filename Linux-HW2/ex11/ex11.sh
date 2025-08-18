@@ -1,4 +1,4 @@
-# #! bin/bash
+# #! /bin/bash
 
 # Log rotation: 
 # Faceți un script ce face log rotation la un fisier de loguri primit ca argument. 
